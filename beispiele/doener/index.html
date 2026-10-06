@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Döner – Erfundenestraße 44</title>
+  <meta name="description" content="Döner in der Erfundenestraße 44. Döner im Brot, Dürüm, Dönerbox und Lahmacun. Montag bis Sonntag von 10 bis 23 Uhr geöffnet.">
+  <link rel="preload" href="fonts/instrument-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#inhalt">Zum Inhalt springen</a>
+
+  <div class="topbar" role="status">
+    <span class="topbar__status" data-status>Montag – Sonntag · 10 – 23 Uhr</span>
+    <span class="topbar__addr">Erfundenestraße 44</span>
+  </div>
+
+  <header class="nav" data-nav>
+    <a class="nav__mark" href="#top" aria-label="Döner – zum Seitenanfang">Ö</a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a href="#karte">Speisekarte</a>
+      <a href="#laden">Der Laden</a>
+      <a href="#besuch">Vorbeikommen</a>
+    </nav>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu-panel" data-toggle>
+      <span class="sr-only">Menü öffnen</span>
+      <span class="nav__bars" aria-hidden="true"></span>
+    </button>
+  </header>
+
+  <div class="panel" id="menu-panel" hidden data-panel>
+    <nav aria-label="Mobile Navigation">
+      <a href="#karte">Speisekarte</a>
+      <a href="#laden">Der Laden</a>
+      <a href="#besuch">Vorbeikommen</a>
+    </nav>
+    <p class="panel__meta">Mo – So · 10 – 23 Uhr<br>Erfundenestraße 44</p>
+  </div>
+
+  <main id="inhalt">
+    <section class="hero" id="top" aria-label="Döner">
+      <h1 class="wordmark" data-fit>DÖNER</h1>
+
+      <figure class="hero__photo">
+        <img src="img/aussen.jpg" width="1248" height="832"
+             alt="Ladenfront von Döner: gelbe Markise, rotes Schild mit der Aufschrift DÖNER, Kreidetafel und ein Tisch auf dem Gehweg">
+        <a class="pill pill--light hero__pill" href="#karte">Speisekarte</a>
+      </figure>
+
+      <div class="hero__text">
+        <p class="lede">Einmal mit alles und scharf?<br>Kommt sofort.</p>
+        <a class="pill pill--dark" href="#besuch">Vorbeikommen</a>
+      </div>
+    </section>
+
+    <section id="karte" aria-labelledby="karte-titel">
+      <div class="bar">
+        <h2 id="karte-titel">Speisekarte</h2>
+        <span class="bar__aside">5 Gerichte</span>
+      </div>
+
+      <div class="menu">
+        <article class="dish dish--photo">
+          <img src="img/doener.jpg" width="1248" height="832" loading="lazy"
+               alt="Döner im Fladenbrot mit Fleisch, Eisbergsalat, Tomaten, Gurken, weißer Soße und scharfer Soße">
+          <div class="dish__row">
+            <h3>Döner im Brot</h3>
+            <span class="price">7,99 €</span>
+          </div>
+        </article>
+
+        <div class="menu__tiles">
+          <article class="dish dish--tile t-senf">
+            <h3 class="dish__name">Dürüm Döner</h3>
+            <div class="dish__row"><span>Gerollt</span><span class="price">8,99 €</span></div>
+          </article>
+          <article class="dish dish--tile t-tomate">
+            <h3 class="dish__name">Dönerbox</h3>
+            <div class="dish__row"><span>Mit Pommes</span><span class="price">6,99 €</span></div>
+          </article>
+          <article class="dish dish--tile t-creme">
+            <h3 class="dish__name">Lahmacun</h3>
+            <div class="dish__row"><span></span><span class="price">4,99 €</span></div>
+          </article>
+          <article class="dish dish--tile t-wein">
+            <h3 class="dish__name">Lahmacun mit Fleisch</h3>
+            <div class="dish__row"><span>Mit Fleisch</span><span class="price">9,50 €</span></div>
+          </article>
+        </div>
+      </div>
+
+      <p class="menu__note">Alle Preise in Euro inkl. MwSt. · Infos zu Allergenen gibt’s an der Theke</p>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Döner im Brot · Dürüm · Dönerbox · Lahmacun · Mo – So 10 – 23 Uhr · Erfundenestraße 44 ·&nbsp;</span>
+        <span>Döner im Brot · Dürüm · Dönerbox · Lahmacun · Mo – So 10 – 23 Uhr · Erfundenestraße 44 ·&nbsp;</span>
+      </div>
+    </div>
+
+    <section id="laden" aria-labelledby="laden-titel">
+      <div class="bar">
+        <h2 id="laden-titel">Der Laden</h2>
+      </div>
+
+      <div class="store">
+        <figure class="story story--wide">
+          <img src="img/theke.jpg" width="1248" height="832" loading="lazy"
+               alt="Die Theke: zwei Dönerspieße, davor die Auslage mit Tomaten, Gurken, Zwiebeln, Weißkraut und Rotkraut">
+          <figcaption class="story__text">
+            <h3>Die Theke</h3>
+            <p>Tomaten, Gurken, Zwiebeln, Weiß- und Rotkraut liegen offen in der Auslage. Du zeigst drauf, wir füllen.</p>
+            <a class="link" href="#karte">Zur Speisekarte</a>
+          </figcaption>
+        </figure>
+
+        <figure class="story">
+          <img src="img/sitze.jpg" width="1248" height="832" loading="lazy"
+               alt="Gastraum mit gelben und roten Polsterbänken vor einer Ziegelwand, Holztischen und Metallhockern am Tresen">
+          <figcaption class="story__text">
+            <h3>Hier essen</h3>
+            <p>Polsterbänke an der Ziegelwand, Hocker am langen Tresen. Oder eingewickelt zum Mitnehmen.</p>
+            <a class="link" href="#besuch">Öffnungszeiten</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="visit" id="besuch" aria-labelledby="besuch-titel">
+      <div class="visit__info">
+        <h2 id="besuch-titel" class="visit__title">Vorbei&shy;kommen</h2>
+
+        <dl class="facts">
+          <div>
+            <dt>Öffnungszeiten</dt>
+            <dd>Montag – Sonntag<br>10:00 – 23:00 Uhr</dd>
+            <dd class="facts__live" data-status-long></dd>
+          </div>
+          <div>
+            <dt>Adresse</dt>
+            <dd>Erfundenestraße 44<br>99999 Erfundenhausen</dd>
+          </div>
+          <div>
+            <dt>Telefon</dt>
+            <dd><a href="tel:+493023125444">030 23125 444</a></dd>
+          </div>
+          <div>
+            <dt>Bezahlen</dt>
+            <dd>Bar, EC- &amp; Kreditkarte, PayPal</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="map" data-map>
+        <div class="map__consent">
+          <p class="map__label">Karte</p>
+          <p>Die Karte wird von Google Maps geladen. Erst mit Klick auf den Button werden Daten an Google übertragen.</p>
+          <button class="pill pill--dark" type="button" data-map-load>Karte laden</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__grid">
+      <p class="footer__about">Döner – Imbiss in der Erfundenestraße 44. Geöffnet Montag bis Sonntag, 10 bis 23 Uhr.</p>
+      <nav class="footer__nav" aria-label="Fußzeile">
+        <a href="#karte">Speisekarte</a>
+        <a href="#laden">Der Laden</a>
+        <a href="#besuch">Vorbeikommen</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </nav>
+      <p class="footer__copy">© 2026 Döner</p>
+    </div>
+    <p class="wordmark wordmark--foot" data-fit aria-hidden="true">DÖNER</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

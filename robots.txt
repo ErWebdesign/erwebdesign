@@ -1,0 +1,6 @@
+# Vor dem Hochladen: DOMAIN-BITTE-EINSETZEN.de durch die echte Domain ersetzen.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://DOMAIN-BITTE-EINSETZEN.de/sitemap.xml

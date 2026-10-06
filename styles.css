@@ -1,0 +1,1116 @@
+/* ============================================================
+   Er-Webdesign — Webstudio
+   Papier, Tinte und ein Signalrot wie ein Korrekturstift.
+   Signatur: Schnittmarken an den Bild-Slots — die Seite zeigt
+   Arbeiten wie Druckbögen auf dem Leuchttisch.
+
+   Schriften lokal in assets/fonts (keine Verbindung zu Google,
+   LG München I, 3 O 17493/20). Archivo und Instrument Sans stehen
+   unter der SIL Open Font License 1.1.
+   ============================================================ */
+
+@font-face{
+  font-family: "Archivo";
+  src: url("assets/fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family: "Archivo";
+  src: url("assets/fonts/archivo-latin-ext.woff2") format("woff2");
+  font-weight: 400 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face{
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/instrumentsans-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212,
+    U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family: "Instrument Sans";
+  src: url("assets/fonts/instrumentsans-latin-ext.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- Token ---------- */
+:root{
+  --papier:      #f2f0ea;
+  --nacht:       #161512;
+
+  /* Rollen — werden im dunklen Band getauscht */
+  --grund:       var(--papier);
+  --tinte:       #161512;   /* 16:1 auf Papier */
+  --tinte-weich: #5d5850;   /* 6,2:1 */
+  --flaeche:     #e6e2d8;   /* leere Slots */
+  --linie:       rgba(22,21,18,.14);
+  --akzent:      #b3391a;   /* Signalrot, 5,2:1 — auch für kleine Schrift */
+
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --pad: 20px;
+  --gap: 14px;
+  --rhythm: 96px;
+  --meta: .72rem;
+  --kopf-h: 68px;
+}
+@media (min-width: 768px){
+  :root{ --pad: 34px; --gap: 20px; --rhythm: 136px; --meta: .74rem; --kopf-h: 76px; }
+}
+@media (min-width: 1180px){
+  :root{ --pad: 48px; --gap: 26px; --rhythm: 176px; }
+}
+
+.band--dunkel{
+  --grund:       var(--nacht);
+  --tinte:       #f2f0ea;
+  --tinte-weich: #a39d92;   /* 6,8:1 auf Nacht */
+  --flaeche:     #24221e;
+  --linie:       rgba(242,240,234,.16);
+  --akzent:      #ff5a2a;   /* 5,9:1 auf Nacht */
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html{
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--kopf-h) + 12px);
+}
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
+
+body{
+  margin: 0;
+  background: var(--grund);
+  color: var(--tinte);
+  font-family: var(--body);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body.menu-offen{ overflow: hidden; }
+
+img{ display: block; max-width: 100%; height: auto; }
+a{ color: inherit; text-decoration: none; }
+h1, h2, h3{ margin: 0; }
+
+::selection{ background: #b3391a; color: #f2f0ea; }
+
+:focus-visible{ outline: 2px solid var(--akzent); outline-offset: 3px; }
+
+.skip{
+  position: fixed; top: -100px; left: var(--pad); z-index: 100;
+  background: var(--tinte); color: var(--grund);
+  padding: 12px 18px; font-size: .85rem;
+}
+.skip:focus{ top: 12px; }
+
+/* ---------- kleine Typo ---------- */
+.meta,
+.eyebrow,
+figcaption,
+.kopf__nav a,
+.burger__label{
+  font-size: var(--meta);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.eyebrow{ margin: 0; color: var(--akzent); }
+.punkt{ color: var(--akzent); }
+
+/* offene Stelle — soll auffallen, bis sie gefüllt ist */
+.luecke{
+  color: var(--akzent);
+  border-bottom: 1px dashed currentColor;
+}
+
+/* ---------- Knöpfe & Links ---------- */
+.knopf{
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 26px;
+  background: var(--tinte); color: var(--grund);
+  font-size: var(--meta); font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  transition: background .25s ease, color .25s ease;
+}
+.knopf:hover{ background: var(--akzent); color: #f2f0ea; }
+.knopf--klein{ min-height: 44px; padding: 0 18px; }
+
+.textlink{
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--meta); font-weight: 600;
+  letter-spacing: .14em; text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--linie);
+  transition: color .25s ease, text-decoration-color .25s ease;
+}
+.textlink:hover{ color: var(--akzent); text-decoration-color: currentColor; }
+.textlink[aria-disabled="true"]{ color: var(--tinte-weich); pointer-events: none; }
+
+/* ============================================================
+   Kopfzeile
+   ============================================================ */
+.kopf{
+  position: sticky; top: 0; z-index: 40;
+  height: var(--kopf-h);
+  display: flex; align-items: center; gap: 28px;
+  padding: 0 var(--pad);
+  background: var(--papier);
+  border-bottom: 1px solid var(--linie);
+}
+.kopf__marke{
+  margin-right: auto;
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-family: var(--display);
+  font-weight: 700; font-stretch: 112%;
+  font-size: 1.12rem; letter-spacing: -.02em;
+}
+.kopf__nav{ display: none; gap: 26px; }
+.kopf__nav a{
+  position: relative; padding: 6px 0;
+  color: var(--tinte-weich);
+  transition: color .25s ease;
+}
+.kopf__nav a::after{
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: var(--akzent);
+  transform: scaleX(0); transform-origin: left; transition: transform .3s ease;
+}
+.kopf__nav a:hover{ color: var(--tinte); }
+.kopf__nav a:hover::after{ transform: scaleX(1); }
+.kopf__cta{ display: none; }
+
+.burger{
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 44px; padding: 0 2px;
+  background: none; border: 0; color: var(--tinte);
+  font-family: var(--body); cursor: pointer;
+}
+.burger__linien{ display: block; width: 22px; }
+.burger__linien i{ display: block; height: 1.5px; background: currentColor; transition: transform .3s ease; }
+.burger__linien i + i{ margin-top: 5px; }
+.burger[aria-expanded="true"] .burger__linien i:first-child{ transform: translateY(3.25px) rotate(45deg); }
+.burger[aria-expanded="true"] .burger__linien i:last-child{ transform: translateY(-3.25px) rotate(-45deg); }
+
+.mobilmenu{
+  position: fixed; inset: var(--kopf-h) 0 0; z-index: 39;
+  padding: 28px var(--pad) 40px;
+  background: var(--papier);
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow-y: auto;
+}
+.mobilmenu[hidden]{ display: none; }   /* sonst gewinnt display:flex gegen hidden */
+.mobilmenu nav{ display: grid; }
+.mobilmenu nav a{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 110%;
+  font-size: 2.1rem; letter-spacing: -.03em; line-height: 1.2;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--linie);
+}
+.mobilmenu__meta{ margin: 28px 0 0; color: var(--tinte-weich); font-size: var(--meta); letter-spacing: .13em; text-transform: uppercase; }
+
+@media (min-width: 960px){
+  .kopf__nav{ display: flex; }
+  .kopf__cta{ display: inline-flex; }
+  .burger, .mobilmenu{ display: none !important; }
+}
+
+/* ============================================================
+   Abschnitte
+   ============================================================ */
+.abschnitt{ padding: 0 var(--pad) var(--rhythm); }
+.band{ padding: var(--rhythm) var(--pad); background: var(--grund); color: var(--tinte); }
+.band + .abschnitt{ padding-top: var(--rhythm); }
+
+.kopfzeile{
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: 10px 24px;
+  padding-bottom: 18px; margin-bottom: 48px;
+  border-bottom: 1px solid var(--linie);
+}
+.kopfzeile--ohne-linie{ border-bottom: 0; margin-bottom: 20px; padding-bottom: 0; }
+.kopfzeile h2{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 112%;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  letter-spacing: -.035em; line-height: 1.05;
+}
+.kopfzeile .meta{ margin: 0; color: var(--tinte-weich); }
+
+/* ============================================================
+   Slots — leere Bildfelder mit Schnittmarken
+   ============================================================ */
+.slot{
+  position: relative;
+  aspect-ratio: var(--ratio, 16 / 10);
+  max-width: 100%;
+  background: var(--flaeche);
+  display: grid; place-items: center;
+}
+.slot img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+}
+.slot:has(img) .slot__hinweis{ display: none; }
+
+.slot__hinweis{
+  margin: 0; padding: 12px;
+  display: grid; gap: 4px; text-align: center;
+  color: var(--tinte-weich);
+  font-size: .66rem; font-weight: 500;
+  letter-spacing: .13em; text-transform: uppercase; line-height: 1.35;
+}
+.slot__hinweis span:first-child{ color: var(--tinte); }
+
+/* Schnittmarken: acht kurze Striche, 4px vom Bildrand abgesetzt */
+.slot--marken::before{
+  content: ""; position: absolute; inset: -13px; pointer-events: none;
+  --m: var(--tinte-weich);
+  background:
+    linear-gradient(var(--m), var(--m)) 0 13px / 9px 1px,
+    linear-gradient(var(--m), var(--m)) 100% 13px / 9px 1px,
+    linear-gradient(var(--m), var(--m)) 0 calc(100% - 13px) / 9px 1px,
+    linear-gradient(var(--m), var(--m)) 100% calc(100% - 13px) / 9px 1px,
+    linear-gradient(var(--m), var(--m)) 13px 0 / 1px 9px,
+    linear-gradient(var(--m), var(--m)) calc(100% - 13px) 0 / 1px 9px,
+    linear-gradient(var(--m), var(--m)) 13px 100% / 1px 9px,
+    linear-gradient(var(--m), var(--m)) calc(100% - 13px) 100% / 1px 9px;
+  background-repeat: no-repeat;
+}
+
+/* Handy-Slot: schwarzer Rahmen, sitzt über der Desktop-Ansicht */
+.slot--handy{
+  --ratio: 9 / 19.5;
+  border: 5px solid var(--nacht);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--flaeche);
+  box-shadow: 0 30px 40px -30px rgba(22,21,18,.45);
+}
+.slot--handy .slot__hinweis{ font-size: .56rem; padding: 4px; }
+
+figure{ margin: 0; container-type: inline-size; }
+figcaption{
+  display: flex; flex-direction: column; gap: 2px;
+  padding-top: 12px;
+  color: var(--tinte-weich);
+}
+figcaption span:first-child{ color: var(--tinte); }
+@container (min-width: 380px){
+  figcaption{ flex-direction: row; justify-content: space-between; gap: 20px; }
+  figcaption span:last-child{ text-align: right; }
+}
+
+/* ============================================================
+   Auftakt
+   ============================================================ */
+.auftakt{
+  padding-top: clamp(36px, 7vw, 88px);
+  display: grid; gap: 30px;
+}
+.auftakt__zeile{
+  margin: 0;
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px;
+  color: var(--tinte-weich);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--linie);
+}
+.auftakt__h{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(2.35rem, 7.4vw, 6.9rem);
+  line-height: .98;
+  letter-spacing: -.045em;
+  max-width: 15ch;
+  text-wrap: balance;
+}
+.auftakt__text p{ margin: 0; max-width: 40ch; font-size: 1.08rem; }
+.auftakt__aktionen{
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px;
+  margin-top: 28px;
+}
+.auftakt__slot{ margin-top: 22px; }
+
+@media (min-width: 960px){
+  .auftakt{
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--gap); row-gap: 0;
+  }
+  .auftakt__zeile{ grid-column: 1 / -1; margin-bottom: clamp(40px, 6vw, 80px); }
+  .auftakt__h{ grid-column: 1 / 12; }
+  .auftakt__text{ grid-column: 1 / 5; align-self: end; margin-top: 64px; }
+  .auftakt__slot{ grid-column: 6 / 13; margin-top: 64px; }
+}
+
+/* ============================================================
+   Handy im Auftakt — Gründungsangebot zum Durchscrollen.
+   Der Bildschirm ist immer 390×845 „Design-Pixel“ groß und wird
+   per --s (aus script.js) auf die Bühne herunterskaliert.
+   ============================================================ */
+.livedemo__buehne{ --ratio: 4 / 5; }
+@media (min-width: 960px){
+  .livedemo__buehne{ --ratio: 1 / 1; }
+}
+
+/* Smartphone: Das Handy bleibt stehen, sein Inhalt läuft mit dem
+   Seiten-Scroll mit (script.js setzt .ist-gekoppelt). Kein Scrollen
+   im Mini-Handy, also kein Hängenbleiben mit dem Daumen. */
+.livedemo__spur{ position: relative; }
+@media (max-width: 959px){
+  .ist-gekoppelt .livedemo__spur{
+    height: 300vh;
+    height: 300svh;
+  }
+  .ist-gekoppelt .livedemo__buehne{
+    position: sticky;
+    top: calc(var(--kopf-h) + 10px);
+    aspect-ratio: auto;
+    height: calc(100vh - var(--kopf-h) - 20px);
+    height: calc(100svh - var(--kopf-h) - 20px);
+  }
+  .ist-gekoppelt .handyscreen{ overflow: hidden; }
+}
+
+.livehandy{
+  --s: .5;
+  position: relative;
+  width: calc(390px * var(--s) + 16px);
+  height: calc(845px * var(--s) + 16px);
+  border: 8px solid var(--nacht);
+  border-radius: calc(44px * var(--s) + 8px);
+  overflow: hidden;
+  background: var(--nacht);
+  box-shadow: 0 40px 60px -40px rgba(22,21,18,.55);
+}
+
+.handyscreen{
+  position: absolute; top: 0; left: 0;
+  width: 390px; height: 845px;
+  overflow-y: auto;
+  transform: scale(var(--s));
+  transform-origin: 0 0;
+  background: var(--grund);
+  color: var(--tinte);
+  font-size: 17px;
+  line-height: 1.45;
+  scrollbar-width: none;
+}
+.handyscreen::-webkit-scrollbar{ display: none; }
+.handyscreen:focus-visible{ outline: 4px solid var(--akzent); outline-offset: -4px; }
+.handyscreen .meta{ font-size: 12px; }
+
+/* Kamera-Insel oben, bleibt beim Scrollen stehen */
+.handyscreen__insel{
+  position: sticky; top: 12px; z-index: 3;
+  width: 112px; height: 32px; margin: 0 auto -32px;
+  border-radius: 20px;
+  background: #000;
+}
+
+.hs{ padding: 60px 28px; }
+.hs__eyebrow{ margin: 0 0 18px; color: var(--akzent); }
+.hs__gross{
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: 44px; line-height: 1;
+  letter-spacing: -.045em;
+  text-wrap: balance;
+}
+
+/* 1 · Start */
+.hs--start{
+  min-height: 760px;          /* bewusst kürzer als der Bildschirm: der nächste Abschnitt schaut unten herein */
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding-top: 72px; padding-bottom: 40px;
+}
+.hs__marke{
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 700; font-stretch: 112%;
+  font-size: 20px; letter-spacing: -.02em;
+}
+.hs__scroll{
+  margin: 0;
+  display: flex; align-items: center; gap: 14px;
+  color: var(--tinte-weich);
+}
+.hs__scroll i{
+  display: block; width: 2px; height: 40px;
+  background: linear-gradient(var(--akzent), var(--akzent)) 0 -14px / 100% 14px no-repeat, var(--linie);
+  animation: hs-scroll 1.8s cubic-bezier(.6,0,.4,1) infinite;
+}
+@keyframes hs-scroll{
+  to{ background-position: 0 40px, 0 0; }
+}
+
+/* 2 · Was Sie bekommen */
+.hs--liste, .hs--branchen{ border-top: 1px solid var(--linie); }
+.hs__punkte{ list-style: none; margin: 0; padding: 0; }
+.hs__punkte li{
+  display: flex; gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid var(--linie);
+  font-size: 21px; line-height: 1.3;
+}
+.hs__punkte li::before{
+  content: ""; flex: none;
+  width: 9px; height: 9px; margin-top: .45em;
+  background: var(--akzent);
+}
+
+/* 3 · Schon gebaut */
+.hs__chips{ list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.hs__chips li{
+  padding: 11px 16px;
+  border: 1px solid var(--linie);
+  font-size: 18px;
+}
+.hs__chips .hs__chip--du{ border-color: var(--akzent); color: var(--akzent); }
+
+/* 4 · Angebot — der ganze Bildschirm wird Signalrot */
+.hs--angebot{
+  --grund: #ff5a2a;
+  --tinte: #161512;
+  --tinte-weich: rgba(22,21,18,.74);
+  --linie: rgba(22,21,18,.28);
+  --akzent: #161512;
+  min-height: 845px;
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--grund);
+  color: var(--tinte);
+}
+.hs__prozent{
+  margin: 0;
+  display: flex; align-items: flex-start;
+  font-family: var(--display);
+  font-weight: 700; font-stretch: 112%;
+  font-size: 150px; line-height: .82;
+  letter-spacing: -.065em;
+  font-variant-numeric: tabular-nums;
+}
+.hs__prozent small{ font-size: 62px; margin: 10px 0 0 6px; letter-spacing: -.03em; }
+.hs__text{
+  margin: 22px 0 30px;
+  font-family: var(--display);
+  font-weight: 500; font-size: 27px; line-height: 1.15;
+  letter-spacing: -.02em;
+}
+.hs__text strong{ font-weight: 700; }
+.hs__kaestchen{ display: flex; gap: 8px; margin-bottom: 12px; }
+.hs__kaestchen i{
+  width: 46px; height: 46px;
+  border: 2px solid var(--tinte);
+  background: var(--tinte);
+  transition: background .3s ease;
+}
+.hs__kaestchen i.vergeben{ background: transparent; opacity: .35; }
+.hs__plaetze .meta{ margin: 0; }
+.hs__klein{ margin: 30px 0 0; font-size: 14px; color: var(--tinte-weich); }
+
+/* 5 · Abschluss */
+.hs--cta{
+  min-height: 560px;
+  display: flex; flex-direction: column; justify-content: center; gap: 28px;
+}
+.hs__knopf{ align-self: flex-start; min-height: 60px; padding: 0 32px; font-size: 14px; }
+.hs__fuss{ margin: 0; color: var(--tinte-weich); }
+
+/* Einblenden beim Scrollen im Handy (nur wenn script.js läuft) */
+.hs-an .hs-rein{
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .6s cubic-bezier(.22,.61,.36,1), transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.hs-an .hs-rein.is-da{ opacity: 1; transform: none; }
+
+/* Leiste unter der Bühne */
+.livedemo__leiste{
+  display: flex; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
+  gap: 2px 20px;
+  padding-top: 14px;
+}
+.livedemo__label{ display: inline-flex; align-items: center; gap: 9px; color: var(--tinte); }
+.livedemo__punkt{ width: 7px; height: 7px; border-radius: 50%; background: var(--akzent); }
+.nur-klein{ display: inline; }
+.nur-gross{ display: none; }
+@media (min-width: 960px){
+  .nur-klein{ display: none; }
+  .nur-gross{ display: inline; }
+}
+
+/* Aufnahme-Modus: index.html?aufnahme — nur das Handy, groß und mittig */
+.aufnahme, .aufnahme body{ overflow: hidden; }
+.aufnahme .skip, .aufnahme .kopf, .aufnahme .mobilmenu, .aufnahme .fuss,
+.aufnahme main > section:not(.auftakt),
+.aufnahme .auftakt > :not(.livedemo),
+.aufnahme .livedemo__leiste{ display: none !important; }
+.aufnahme .livedemo{
+  position: fixed; inset: 0; z-index: 50;
+  margin: 0 !important; opacity: 1 !important; transform: none !important;
+}
+.aufnahme .livedemo__buehne{ aspect-ratio: auto; height: 100vh; background: var(--papier); }
+.aufnahme .livedemo__buehne::before{ display: none; }
+
+/* ============================================================
+   Arbeiten — ein Abschnitt pro Projekt, untereinander.
+   Links die Bühne (Desktop + Handy), rechts die Angaben;
+   jedes zweite Projekt gespiegelt.
+   ============================================================ */
+.projekte{ display: grid; }
+
+.projekt{
+  display: grid; gap: 40px;
+  padding: 44px 0 72px;
+  border-top: 1px solid var(--linie);
+}
+.projekt:first-child{ border-top: 0; padding-top: 12px; }
+.projekt:last-child{ padding-bottom: 0; }
+
+.projekt__buehne{
+  position: relative;
+  padding-bottom: 10%;       /* Platz, in den das Handy hineinragt */
+}
+.projekt__buehne .slot--handy{
+  position: absolute; right: 5%; bottom: 0;
+  width: 23%;
+}
+
+.projekt__info{ display: grid; gap: 0; align-content: start; }
+.projekt__nr{
+  margin: 0 0 14px;
+  display: flex; justify-content: space-between; gap: 16px;
+  color: var(--tinte-weich);
+}
+.projekt__nr span:first-child{ color: var(--akzent); }
+.projekt__info h3{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  letter-spacing: -.04em; line-height: 1.02;
+  margin-bottom: 18px;
+}
+.projekt__text{ margin: 0 0 24px; color: var(--tinte-weich); max-width: 40ch; }
+
+.merkmale{ list-style: none; margin: 0 0 22px; padding: 0; }
+.merkmale li{
+  padding: 11px 0;
+  border-top: 1px solid var(--linie);
+  font-size: .95rem;
+}
+.merkmale li:last-child{ border-bottom: 1px solid var(--linie); }
+
+.projekt__info .textlink{ justify-self: start; }
+
+@media (min-width: 960px){
+  .projekt{
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--gap);
+    align-items: center;
+    padding: 72px 0 104px;
+  }
+  .projekt:first-child{ padding-top: 24px; }
+  .projekt__buehne{ grid-column: 1 / 8; grid-row: 1; }
+  .projekt__info{ grid-column: 9 / 13; grid-row: 1; }
+
+  .projekt--gespiegelt .projekt__buehne{ grid-column: 6 / 13; }
+  .projekt--gespiegelt .projekt__info{ grid-column: 1 / 5; }
+  .projekt--gespiegelt .slot--handy{ right: auto; left: 5%; }
+}
+
+/* ============================================================
+   Leistungen
+   ============================================================ */
+.liste{ margin: 0; }
+.liste__zeile{
+  display: grid; gap: 8px;
+  padding: 26px 0;
+  border-top: 1px solid var(--linie);
+}
+.liste__zeile:last-child{ border-bottom: 1px solid var(--linie); }
+.liste dt{
+  font-family: var(--display);
+  font-weight: 500; font-stretch: 108%;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  letter-spacing: -.03em; line-height: 1.1;
+  transition: color .3s ease;
+}
+.liste dd{ margin: 0; max-width: 54ch; color: var(--tinte-weich); }
+
+@media (min-width: 820px){
+  .liste__zeile{
+    grid-template-columns: 5fr 7fr;
+    column-gap: var(--gap);
+    padding: 34px 0;
+    align-items: baseline;
+  }
+  .liste__zeile:hover dt{ color: var(--akzent); }
+}
+
+/* ============================================================
+   Standard (dunkel)
+   ============================================================ */
+.standard{ display: grid; gap: 52px; }
+.standard h2{
+  font-family: var(--display);
+  font-weight: 500; font-stretch: 108%;
+  font-size: clamp(1.9rem, 4.8vw, 3.6rem);
+  line-height: 1.04; letter-spacing: -.04em;
+  margin-top: 16px;
+  max-width: 18ch;
+  text-wrap: balance;
+}
+.pruefliste{
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 0 var(--gap);
+}
+.pruefliste li{
+  padding: 20px 0 22px;
+  border-top: 1px solid var(--linie);
+  color: var(--tinte-weich);
+  max-width: 44ch;
+}
+.pruefliste .meta{
+  display: block; margin-bottom: 6px;
+  color: var(--tinte);
+}
+.pruefliste .meta::before{
+  content: ""; display: inline-block;
+  width: 7px; height: 7px; margin-right: 10px;
+  background: var(--akzent);
+  vertical-align: .08em;
+}
+@media (min-width: 700px){
+  .pruefliste{ grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px){
+  .standard{ grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); }
+  .standard__kopf{ grid-column: 1 / 6; }
+  .pruefliste{ grid-column: 7 / 13; margin-top: 8px; }
+}
+
+/* ============================================================
+   Ablauf
+   ============================================================ */
+.schritte{ list-style: none; margin: 0; padding: 0; display: grid; }
+.schritte li{ padding: 26px 0; border-top: 1px solid var(--linie); }
+.schritte li:last-child{ border-bottom: 1px solid var(--linie); }
+.schritte__nr{
+  display: block; margin-bottom: 14px;
+  font-family: var(--display); font-weight: 600;
+  font-size: .8rem; letter-spacing: .12em;
+  color: var(--akzent);
+  font-variant-numeric: tabular-nums;
+}
+.schritte h3{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: 1.35rem; letter-spacing: -.02em; line-height: 1.15;
+  margin-bottom: 8px;
+}
+.schritte p{ margin: 0; color: var(--tinte-weich); max-width: 34ch; }
+
+@media (min-width: 820px){
+  .schritte{ grid-template-columns: repeat(4, 1fr); column-gap: var(--gap); }
+  .schritte li{ padding: 22px 0 0; }
+  .schritte li:last-child{ border-bottom: 0; }
+}
+
+/* ============================================================
+   Wir
+   ============================================================ */
+.wir{ display: grid; gap: 56px; }
+.wir h2{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+  line-height: 1; letter-spacing: -.045em;
+  margin: 16px 0 26px;
+}
+.wir__text p{ margin: 0 0 1em; max-width: 42ch; }
+.wir__text p.eyebrow{ margin: 0; }
+.wir__leise{ color: var(--tinte-weich); }
+
+.wir__personen{
+  display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap);
+  align-items: start;
+}
+.person--versetzt{ margin-top: 48px; }
+
+@media (min-width: 960px){
+  .wir{ grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); align-items: start; }
+  .wir__text{ grid-column: 1 / 6; position: sticky; top: calc(var(--kopf-h) + 40px); }
+  .wir__personen{ grid-column: 7 / 13; }
+  .person--versetzt{ margin-top: 14vh; }
+}
+
+/* ============================================================
+   Stimmen
+   ============================================================ */
+.stimmen__raster{ display: grid; gap: 48px var(--gap); }
+.stimme blockquote{ margin: 0; }
+.stimme blockquote p{
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 500; font-stretch: 100%;
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  line-height: 1.22; letter-spacing: -.025em;
+  max-width: 30ch;
+}
+.stimme figcaption{ margin-top: 18px; border-top: 1px solid var(--linie); }
+@media (min-width: 820px){
+  .stimmen__raster{ grid-template-columns: 1fr 1fr; }
+  .stimme:nth-child(2){ margin-top: 72px; }
+}
+
+/* ============================================================
+   Fragen
+   ============================================================ */
+.fragen__liste{ border-bottom: 1px solid var(--linie); }
+.fragen details{ border-top: 1px solid var(--linie); }
+.fragen summary{
+  list-style: none;
+  display: flex; justify-content: space-between; align-items: center; gap: 20px;
+  min-height: 44px; padding: 22px 0;
+  font-family: var(--display);
+  font-weight: 500; font-stretch: 104%;
+  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
+  letter-spacing: -.02em; line-height: 1.25;
+  cursor: pointer;
+  transition: color .25s ease;
+}
+.fragen summary::-webkit-details-marker{ display: none; }
+.fragen summary::after{
+  content: ""; flex: none;
+  width: 14px; height: 14px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 14px 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 14px no-repeat;
+  transition: transform .3s ease;
+}
+.fragen details[open] summary::after{ transform: rotate(45deg); }
+.fragen summary:hover{ color: var(--akzent); }
+.fragen details p{ margin: 0; padding: 0 0 26px; max-width: 58ch; color: var(--tinte-weich); }
+
+@media (min-width: 960px){
+  .fragen{ display: grid; grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); }
+  .fragen .kopfzeile{ grid-column: 1 / 5; flex-direction: column; align-self: start; position: sticky; top: calc(var(--kopf-h) + 40px); }
+  .fragen__liste{ grid-column: 5 / 13; }
+}
+
+/* ============================================================
+   Kontakt (dunkel)
+   ============================================================ */
+.kontakt{ display: grid; gap: 52px; }
+.kontakt h2{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(2.2rem, 6.4vw, 5.4rem);
+  line-height: .98; letter-spacing: -.045em;
+  margin: 16px 0 24px;
+  max-width: 14ch;
+  text-wrap: balance;
+}
+.kontakt__sub{ margin: 0; max-width: 42ch; color: var(--tinte-weich); }
+
+.kontakt__daten dl{ margin: 0; }
+.kontakt__daten dl > div{
+  display: grid; gap: 4px;
+  padding: 16px 0;
+  border-top: 1px solid var(--linie);
+}
+.kontakt__daten dl > div:last-child{ border-bottom: 1px solid var(--linie); }
+@media (min-width: 480px){
+  .kontakt__daten dl > div{ grid-template-columns: 8.5em 1fr; gap: 12px; align-items: baseline; }
+}
+.kontakt__daten dt{ color: var(--tinte-weich); }
+.kontakt__daten dd{ margin: 0; }
+.kontakt__daten dd a{
+  display: inline-block; padding: 11px 0; margin: -11px 0;
+  transition: color .25s ease;
+}
+.kontakt__daten dd a:hover{ color: var(--akzent); }
+.kontakt__daten .knopf{ margin-top: 32px; }
+
+@media (min-width: 960px){
+  .kontakt{ grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); align-items: end; }
+  .kontakt__lead{ grid-column: 1 / 8; }
+  .kontakt__daten{ grid-column: 8 / 13; }
+}
+
+/* ============================================================
+   Fuß — Wortmarke über die ganze Breite
+   ============================================================ */
+.fuss{ padding: 0 var(--pad) 22px; }
+.fuss__marke{
+  display: block; width: 100%;
+  margin: clamp(40px, 7vw, 90px) 0 18px;
+  overflow: visible;
+}
+.fuss__marke text{
+  fill: var(--tinte);
+  font-family: var(--display);
+  font-weight: 700; font-stretch: 112%;
+  font-size: 150px;
+  letter-spacing: -.03em;
+}
+.fuss__meta{
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 28px;
+  padding-top: 16px;
+  border-top: 1px solid var(--linie);
+  color: var(--tinte-weich);
+}
+.fuss--seite .fuss__meta{ margin-top: 0; }
+.fuss__meta a{
+  display: inline-block; padding: 14px 0; margin: -14px 0;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px;
+}
+.fuss__meta a:hover{ color: var(--akzent); }
+
+/* ============================================================
+   Fenster „Platz sichern“ (dialog)
+   ============================================================ */
+html:has(.platz[open]){ overflow: hidden; }
+
+.platz{
+  width: min(640px, calc(100vw - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0; border: 0;
+  background: var(--papier);
+  color: var(--tinte);
+  overflow: auto;
+  box-shadow: 0 40px 80px -40px rgba(0,0,0,.6);
+}
+.platz::backdrop{ background: rgba(22,21,18,.64); }
+.platz[open]{ animation: platz-auf .4s cubic-bezier(.22,.61,.36,1); }
+@keyframes platz-auf{
+  from{ opacity: 0; transform: translateY(24px); }
+}
+
+/* Auf dem Handy als Blatt von unten */
+@media (max-width: 599px){
+  .platz{
+    top: auto; bottom: 0; left: 0; right: 0;
+    width: 100%;
+    max-height: 92vh;
+    max-height: 92dvh;
+    margin: 0;
+  }
+}
+
+.platz__band{
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 6px 10px 6px 24px;
+  background: #ff5a2a;
+  color: var(--nacht);
+}
+.platz__angebot{ margin: 0; display: flex; align-items: baseline; gap: 14px; }
+.platz__prozent{
+  font-family: var(--display);
+  font-weight: 700; font-stretch: 112%;
+  font-size: 1.5rem; letter-spacing: -.04em;
+}
+.platz__zu{
+  position: relative;
+  width: 44px; height: 44px;
+  border: 0; background: none; cursor: pointer;
+  color: var(--nacht);
+}
+.platz__zu::before, .platz__zu::after{
+  content: ""; position: absolute; left: 12px; right: 12px; top: 50%;
+  height: 2px; background: currentColor;
+}
+.platz__zu::before{ transform: rotate(45deg); }
+.platz__zu::after{ transform: rotate(-45deg); }
+.platz__zu:focus-visible{ outline-color: var(--nacht); }
+
+.platz__inhalt{ padding: 28px 24px 32px; }
+@media (min-width: 600px){
+  .platz__inhalt{ padding: 40px 44px 44px; }
+}
+
+.platz h2{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(2rem, 6vw, 2.9rem);
+  line-height: 1; letter-spacing: -.045em;
+}
+.platz__sub{ margin: 14px 0 0; max-width: 44ch; color: var(--tinte-weich); }
+.platz__frei{
+  margin: 18px 0 6px;
+  display: inline-flex; align-items: center; gap: 9px;
+  color: var(--tinte);
+}
+.platz__frei i{ width: 7px; height: 7px; border-radius: 50%; background: var(--akzent); }
+
+.platz__form{ display: grid; gap: 18px 16px; }
+@media (min-width: 600px){
+  .platz__form{ grid-template-columns: 1fr 1fr; }
+}
+.feld--breit{ grid-column: 1 / -1; }
+
+.feld label{
+  display: block; margin-bottom: 7px;
+  font-size: var(--meta); font-weight: 500;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--tinte-weich);
+}
+.feld input{
+  width: 100%; height: 52px;
+  padding: 0 14px;
+  border: 1px solid rgba(22,21,18,.26);
+  border-radius: 0;
+  background: #fff;
+  color: var(--tinte);
+  font-family: var(--body); font-size: 1rem;
+  -webkit-appearance: none; appearance: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.feld input::placeholder{ color: #8f897f; }
+.feld input:hover{ border-color: rgba(22,21,18,.5); }
+.feld input:focus{ outline: none; border-color: var(--tinte); box-shadow: inset 0 0 0 1px var(--tinte); }
+.feld input[aria-invalid="true"]{ border-color: var(--akzent); box-shadow: inset 4px 0 0 var(--akzent); }
+
+/* Auswahl „Wie haben Sie uns gefunden?“ */
+.platz__wahl{ margin: 0; padding: 0; border: 0; }
+.platz__wahl legend{
+  padding: 0; margin-bottom: 10px;
+  font-size: var(--meta); font-weight: 500;
+  letter-spacing: .13em; text-transform: uppercase;
+  color: var(--tinte-weich);
+}
+.platz__chips{ display: flex; flex-wrap: wrap; gap: 8px; }
+.platz__chips .chip{ cursor: pointer; }
+.platz__chips input{
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+.platz__chips span{
+  display: inline-flex; align-items: center;
+  min-height: 46px; padding: 0 18px;
+  border: 1px solid rgba(22,21,18,.26);
+  background: #fff;
+  font-size: .95rem;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
+}
+.platz__chips .chip:hover span{ border-color: var(--tinte); }
+.platz__chips input:checked + span{
+  background: var(--tinte); color: var(--papier);
+  border-color: var(--tinte);
+}
+.platz__chips input:focus-visible + span{ outline: 2px solid var(--akzent); outline-offset: 2px; }
+.platz__chips[aria-invalid="true"] span{ border-color: var(--akzent); }
+
+.platz__check{
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-top: 4px;
+  font-size: .9rem; line-height: 1.45;
+  color: var(--tinte-weich);
+  cursor: pointer;
+}
+.platz__check input{ flex: none; width: 22px; height: 22px; margin: 0; accent-color: var(--nacht); cursor: pointer; }
+.platz__check input[aria-invalid="true"]{ outline: 2px solid var(--akzent); outline-offset: 2px; }
+.platz__check a{ color: var(--tinte); text-decoration: underline; text-underline-offset: 3px; }
+
+.platz__fehler{ margin: 0; color: var(--akzent); font-weight: 600; font-size: .95rem; }
+.platz__senden{ width: 100%; min-height: 58px; font-size: .8rem; }
+.platz__hinweis{ margin: -4px 0 0; text-align: center; font-size: .82rem; color: var(--tinte-weich); }
+
+.platz__danke h2{ margin: 12px 0 16px; }
+.platz__danke p{ margin: 0 0 14px; max-width: 46ch; }
+.platz__danke .platz__klein{ font-size: .9rem; color: var(--tinte-weich); }
+.platz__danke .knopf{ margin-top: 12px; }
+.platz__danke:focus{ outline: none; }
+
+/* ============================================================
+   Unterseiten (Impressum, Datenschutz)
+   ============================================================ */
+.kopf__zurueck{
+  display: inline-flex; align-items: center; min-height: 44px;
+  font-size: var(--meta); letter-spacing: .13em; text-transform: uppercase; font-weight: 500;
+  color: var(--tinte-weich);
+}
+.kopf__zurueck:hover{ color: var(--akzent); }
+
+.seite{
+  padding: clamp(52px, 9vw, 120px) var(--pad) var(--rhythm);
+  display: grid; gap: 40px;
+}
+.seite h1{
+  font-family: var(--display);
+  font-weight: 600; font-stretch: 108%;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1; letter-spacing: -.045em;
+  margin-top: 14px;
+  hyphens: auto;
+}
+.prosa{ max-width: 64ch; }
+.prosa h2{
+  font-family: var(--display);
+  font-weight: 600; font-size: 1.12rem; letter-spacing: -.01em; line-height: 1.25;
+  margin: 0 0 10px; padding-top: 28px;
+  border-top: 1px solid var(--linie);
+}
+.prosa section + section h2{ margin-top: 34px; }
+.prosa p{ margin: 0 0 1em; }
+.prosa p:last-child{ margin-bottom: 0; }
+.prosa ul{ margin: 0 0 1em; padding-left: 1.1em; }
+.prosa li{ margin-bottom: .4em; }
+.prosa address{ font-style: normal; }
+.prosa a{ text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.prosa a:hover{ color: var(--akzent); }
+
+@media (min-width: 960px){
+  .seite{ grid-template-columns: repeat(12, 1fr); column-gap: var(--gap); align-items: start; }
+  .seite__kopf{ grid-column: 1 / 5; position: sticky; top: calc(var(--kopf-h) + 40px); }
+  .prosa{ grid-column: 6 / 12; }
+}
+
+/* ============================================================
+   Eine Bewegung: Slots kommen beim Scrollen herauf
+   ============================================================ */
+/* Versteckt wird nur, wenn script.js läuft (html.js) — ohne JS bleibt alles sichtbar */
+.js .reveal{
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s cubic-bezier(.22,.61,.36,1), transform .9s cubic-bezier(.22,.61,.36,1);
+}
+.js .reveal.is-in{ opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1; transform: none; transition: none; }
+  *{ animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
